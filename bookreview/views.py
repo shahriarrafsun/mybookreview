@@ -75,7 +75,7 @@ def book(request, id):
             comment_form = BookCommentForm()
 
     all_ratings = book.bookrating_set.exclude(
-        rating=0)  # exclude zero/blank ratings
+        rating=0)
     total_ratings = all_ratings.count()
 
     avg_rating = (
@@ -134,20 +134,15 @@ def delete_wishlist(request, id):
 
 @login_required
 def delete_comment(request, book_id, comment_id):
-    # 1. Get the comment object, or return 404 if it doesn't exist
     comment = get_object_or_404(BookComment, id=comment_id, book_id=book_id)
 
-    # 2. Check if the logged-in user is the owner of the comment
     if comment.user != request.user:
-        # Optional: Add a message for unauthorized attempts
         messages.error(
             request, "You are not authorized to delete this comment.")
     else:
-        # 3. Delete the comment
         comment.delete()
         messages.success(request, "Comment deleted successfully.")
 
-    # 4. Redirect back to the book detail page
     return redirect('book', id=book_id)
 
 
@@ -162,24 +157,20 @@ def writer(request, id):
     form = None
 
     if request.user.is_authenticated:
-        # Only get the existing rating, don't create automatically
         rating_obj = AuthorRating.objects.filter(
             writer=writer, user=request.user).first()
 
         if request.method == "POST":
             form = AuthorRatingForm(request.POST, instance=rating_obj)
             if form.is_valid():
-                # Create a rating only if the form is valid (user actually rated)
                 rating = form.save(commit=False)
                 rating.writer = writer
                 rating.user = request.user
                 rating.save()
                 return redirect('writer', id=writer.id)
         else:
-            # Pre-fill with existing rating if available
             form = AuthorRatingForm(instance=rating_obj)
 
-    # Get all ratings except those that are 0 (dummy/default)
     all_ratings = writer.authorrating_set.exclude(rating=0)
     total_ratings = all_ratings.count()
     avg_rating = (
