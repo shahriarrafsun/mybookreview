@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoriTori Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+    const toggleButton = document.getElementById('theme-toggle');
+    let currentTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+
+    toggleButton.addEventListener('click', () => {
+      if (currentTheme === 'dark') {
+        currentTheme = 'light';
+      } else {
+        currentTheme = 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', currentTheme);
+
+      localStorage.setItem('theme', currentTheme);
+    });
+    </script>
+    <div class="login-wrapper">
+      <div class="login-container">
+        <h2 class="page-title">Login</h2>
+        <form action="" method="POST" class="login-form">
+          {% csrf_token %}
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="Enter username" required>
+
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter password" required>
+          {% for message in messages %}
+          {% if message.tags == 'error' %} 
+          <div class="error-msg">{{ message }}</div>
+          {% endif %}
+          {% endfor %}
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+

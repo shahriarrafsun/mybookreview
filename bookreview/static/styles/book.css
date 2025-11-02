@@ -1,0 +1,240 @@
+.book-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book-container {
+  height: 100%;
+  width: 50%;
+  margin-top: 8vh;
+  row-gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border);
+}
+
+.book-header {
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  padding: 60px;
+  column-gap: 3vw;
+  position: relative;
+  border-bottom: 1px solid var(--border)
+}
+
+.book-cover {
+  height: 248px;
+  width: 155px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+}
+
+.book-description {
+  width: 100%;
+  font-family: 'Tiro Bangla', sans-serif;
+  padding: 5px 55px 55px 55px;
+  margin-top: 3vh;
+}
+
+.book-intro {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8vh;
+}
+
+.book-title {
+  font-size: 24px;
+}
+
+.book-writer a {
+  color: var(--accent-green);
+}
+
+.book-writer a:hover {
+  color: var(--accent-purple);
+}
+
+.book-rating-input {
+  display: flex;
+}
+
+@media screen and (max-width: 600px) {
+  .book-container {
+    width: 90%;
+    margin-top: 4vh;
+  }
+
+  .book-header {
+    padding: 5px;
+    margin-top: 2vh;
+    padding-bottom: 3vh;
+    padding-left: 3vw;
+  }
+
+  .book-description {
+    padding-left: 4vw;
+    padding-right: 4vw;
+  }
+
+  .book-cover {
+    margin-left: 2vw;
+  }
+
+}
+
+.comment-section {
+  width: 50%;
+  margin: 5vh auto;
+  padding: 30px;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.comment-title {
+  font-size: 22px;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 600px;
+  overflow: auto;
+}
+
+.comment-card {
+  background-color: var(--bg-main);
+  border: 1px solid var(--border);
+  padding: 15px 20px;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.comment-user {
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.comment-date {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.comment-body p {
+  margin: 0;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.no-comments {
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 20px 0;
+}
+
+.comment-form-container {
+  margin-top: 2rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+
+.leave-comment {
+  font-size: 18px;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.comment-form textarea,
+.comment-form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background-color: var(--bg-main);
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.comment-form textarea:focus,
+.comment-form input:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+}
+
+.comment-submit {
+  width: fit-content;
+  background-color: var(--accent-blue);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.comment-submit:hover {
+  background-color: var(--accent-purple);
+}
+
+.login-to-comment {
+  text-align: center;
+  color: var(--text-muted);
+  margin-top: 1rem;
+}
+
+.login-to-comment a {
+  color: red;
+}
+
+.login-to-comment a:hover {
+  color: var(--accent-purple);
+}
+
+
+/* Responsive adjustments */
+@media screen and (max-width: 600px) {
+  .comment-section {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .comment-card {
+    padding: 12px 15px;
+  }
+
+  .comment-list {
+    max-height: 500px;
+  }
+}

@@ -1,0 +1,83 @@
+.writer-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.writer-container {
+  height: 100%;
+  width: 50%;
+  margin-top: 8vh;
+  row-gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border);
+}
+
+.writer-header {
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  padding: 60px;
+  column-gap: 3vw;
+  position: relative;
+  border-bottom: 1px solid var(--border)
+}
+
+.writer-dp {
+  height: 248px;
+  width: 155px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  flex-shrink: 0;
+  display: flex;
+}
+
+.writer-description {
+  width: 100%;
+  font-family: 'Tiro Bangla', sans-serif;
+  padding: 5px 55px 55px 55px;
+  margin-top: 3vh;
+}
+
+.writer-intro {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8vh;
+}
+
+.writer-title {
+  font-size: 24px;
+}
+
+
+
+@media screen and (max-width: 600px) {
+  .writer-container {
+    width: 90%;
+    margin-top: 4vh;
+  }
+
+  .writer-header {
+    padding: 5px;
+    margin-top: 2vh;
+    padding-bottom: 3vh;
+    padding-left: 3vw;
+  }
+
+  .writer-description {
+    padding-left: 4vw;
+    padding-right: 4vw;
+  }
+
+  .writer-cover {
+    margin-left: 2vw;
+  }
+
+}

@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{book.title}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/book.css' %}">
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">
+        <a href="{% url 'home' %}">PoriTori</a>
+        <button id="theme-toggle">Switch Theme</button>
+        <script>
+        const toggleButton = document.getElementById('theme-toggle');
+        let currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+
+        toggleButton.addEventListener('click', () => {
+          if (currentTheme === 'dark') {
+            currentTheme = 'light';
+          } else {
+            currentTheme = 'dark';
+          }
+          document.documentElement.setAttribute('data-theme', currentTheme);
+
+          localStorage.setItem('theme', currentTheme);
+        });
+        </script>
+      </div>
+      <div class="nav-mid">
+        <div class="discover"><a href="{% url 'discover' %}">Discover</a></div>
+        <div class="Catagory"><a href="{% url 'wishlist' %}">Wishlist</a></div>
+        <div class="all-books"><a href="{% url 'all_books' %}">All Books</a></div>
+        <div class="writers"><a href="{% url 'all_writers' %}">Writers</a></div>
+      </div>
+      <div class="nav-right">
+        <div class="nav-user">
+          {% if user.is_authenticated %}
+          <div class="nav-username">Hello! {{user.username}}</div> 
+          <div class="nav-logout"><a href="{% url 'logout' %}">logout</a></div>
+          {% else %}
+          <div class="nav-signup"><a href="{% url 'signup' %}">signup</a></div>
+          <div class="nav-login"><a href="{% url 'login' %}">login</a></div>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <div class="book-wrapper">
+      <div class="book-container">
+        <div class="book-header">
+          <div class="book-cover"><img src="{{book.cover.url}}"  height="242px" width="150px" alt=""></div>
+          <div class="book-intro">
+            <book-detail-1>
+              <div class="book-title"><h2>{{book.title}}</h2></div>
+              <div class="book-writer"><a href="{% url 'writer' book.writer.id %}">{{book.writer}}</a></div>
+            </book-detail-1>
+            <div class="book-rating">
+              <div class="book-avg-rating"><i>{{avg_rating}}/5</i></div>
+              <div class="book-total-rating"><small>{{total_ratings}} people rated this</small></div>
+              <div class="book-rating-div">
+                {% if user.is_authenticated %}
+                <small>Rate the book</small>
+                <div class="book-rating-input">
+                  <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Submit</button>
+                  </form>
+                </div>
+                {% if not is_in_wishlisht %}
+                <form action="{% url 'add_wishlist' book.id %}" method='POST'>
+                  {% csrf_token %}
+                  <button type='submit'>Add to wishlist</button>
+                </form>
+                {% else %}
+                <i>this book is in your wishlist</i>
+                {% endif %}
+                {% else %}
+                <a href="{% url 'login' %}?next={{request.path}}">Rate</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="book-description">
+          <p>{{book.description | linebreaksbr}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="comment-section">
+      <h3 class="comment-title">Comments</h3>
+
+      <div class="comment-list">
+        {% if all_comments %}
+        {% for comment in all_comments %}
+        <div class="comment-card">
+          <div class="comment-header">
+            <div class="comment-user">{{ comment.user.username }}</div>
+            <div class="comment-date">{{ comment.commented_at|date:"F j, Y, P" }}</div>
+            {% if request.user.is_authenticated and comment.user == request.user %}
+            <form method="POST" action="{% url 'delete_comment' book.id comment.id %}" onsubmit="return confirm('Are you sure you want to delete this comment?');">
+              {% csrf_token %}
+              <button type="submit" class="delete-comment-btn">Delete</button>
+            </form>
+            {% endif %}
+          </div>
+          <div class="comment-body">
+            <p>{{ comment.comment }}</p>
+          </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p class="no-comments">No comments yet. Be the first to leave one!</p>
+        {% endif %}
+      </div>
+
+      <div class="comment-form-container">
+        {% if user_is_authenticated %}
+        <h4 class="leave-comment">Leave a Comment</h4>
+        <form action="" method="POST" class="comment-form">
+          {% csrf_token %}
+          {{ comment_form.as_p }}
+          <button type="submit" class="comment-submit">Post Comment</button>
+        </form>
+        {% else %}
+        <p class="login-to-comment"><a href="{% url 'login' %}?next={{request.path}}"><span>login</span></a> to comment</p>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
+

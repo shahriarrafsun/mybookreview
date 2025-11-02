@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <name>{{writer.title}}</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'styles/discover.css' %}">
+      <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">
+        <a href="{% url 'home' %}">PoriTori</a>
+        <button id="theme-toggle">Switch Theme</button>
+        <script>
+        const toggleButton = document.getElementById('theme-toggle');
+        let currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+
+        toggleButton.addEventListener('click', () => {
+          if (currentTheme === 'dark') {
+            currentTheme = 'light';
+          } else {
+            currentTheme = 'dark';
+          }
+          document.documentElement.setAttribute('data-theme', currentTheme);
+
+          localStorage.setItem('theme', currentTheme);
+        });
+        </script>
+      </div>
+      <div class="nav-mid">
+        <div class="discover"><a href="{% url 'discover' %}">Discover</a></div>
+        <div class="Catagory"><a href="{% url 'wishlist' %}">Wishlist</a></div>
+        <div class="all-books"><a href="{% url 'all_books' %}">All Books</a></div>
+        <div class="writers"><a href="{% url 'all_writers' %}">Writers</a></div>
+      </div>
+      <div class="nav-right">
+        <div class="nav-user">
+          {% if user.is_authenticated %}
+          <div class="nav-username">Hello! {{user.username}}</div> 
+          <div class="nav-logout"><a href="{% url 'logout' %}">logout</a></div>
+          {% else %}
+          <div class="nav-signup"><a href="{% url 'signup' %}">signup</a></div>
+          <div class="nav-login"><a href="{% url 'login' %}">login</a></div>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <div class="search-wrapper">
+      <form action="{% url 'discover' %}" method="GET" class="search-form">
+        <input type="text" name="q" placeholder="Search for books or writers..." value="{{ query|default:'' }}">
+        <button type="submit">Search</button>
+      </form>
+      {% if query %}
+      <h1 class="page-title">Search Results for "{{ query }}"</h1>
+
+      {% if book_results or writer_results %}
+      {% if book_results %}
+      <div class="all-books-wrapper">
+        <h2 class="section-title">Books</h2>
+        <div class="books-grid">
+          {% for book in book_results %}
+          <div class="book-card">
+            <div class="book-img">
+              <a href="{% url 'book' book.id %}">
+                <img src="{{ book.cover.url }}" alt="{{ book.title }}">
+              </a>
+            </div>
+            <div class="book-info">
+              <a href="{% url 'book' book.id %}" class="book-title">{{ book.title }}</a>
+              <div class="book-writer">{{ book.writer.name }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if writer_results %}
+      <div class="all-writers-wrapper">
+        <h2 class="section-title">Writers</h2>
+        <div class="writers-grid">
+          {% for writer in writer_results %}
+          <div class="writer-card">
+            <div class="writer-img">
+              <a href="{% url 'writer' writer.id %}">
+                <img src="{{ writer.dp.url }}" alt="{{ writer.name }}">
+              </a>
+            </div>
+            <div class="writer-info">
+              <a href="{% url 'writer' writer.id %}" class="writer-title">{{ writer.name }}</a>
+              <div class="writer-lifespan">{{ writer.lifespan }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+      {% else %}
+      <p class="no-results">No results found for "{{ query }}".</p>
+      {% endif %}
+      {% endif %}
+    </div>
+  </body>
+</html>
+
+

@@ -1,0 +1,86 @@
+.register-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  background-color: var(--bg-main);
+}
+
+.register-container {
+  background-color: var(--bg-panel);
+  padding: 4vh 4vw;
+  border: 1px solid var(--border);
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2vh;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.register-container .page-title {
+  text-align: center;
+  color: var(--accent-blue);
+  margin-bottom: 1.5vh;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5vh;
+}
+
+.register-form p {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5vh;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.register-form input {
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--border);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+}
+
+.register-form input::placeholder {
+  color: var(--text-muted);
+}
+
+.register-form input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 5px var(--accent-blue);
+}
+
+.register-form button {
+  padding: 0.8rem;
+  border: none;
+  background-color: var(--accent-blue);
+  color: var(--bg-panel);
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.register-form button:hover {
+  background-color: var(--accent-green);
+}
+
+.error-msg {
+  background-color: #f87171;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+@media screen and (max-width:600px) {
+  .register-container {
+    width: 90%;
+  }
+}

@@ -1,0 +1,64 @@
+.writers a {
+  color: var(--accent-green);
+}
+
+.all-writers-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 4vh 4vw;
+  row-gap: 2vh;
+}
+
+.page-title {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-bottom: 1px solid var(--border);
+}
+
+.writers-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 3vw;
+  row-gap: 3vh;
+}
+
+.writer-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--border);
+  width: 200px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.writer-card:hover {
+  transform: translateY(-5%);
+}
+
+.writer-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.writer-info .writer-title h4 {
+  color: var(--accent-green);
+}
+
+@media screen and (max-width: 600px) {
+  .writer-card {
+    width: auto;
+  }
+
+  .writer-card:hover {
+    transform: translateY(0%);
+  }
+}
