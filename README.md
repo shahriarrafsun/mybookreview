@@ -23,7 +23,7 @@ Users can add books to their wishlist, leave reviews, and browse featured titles
 ![Homepage Screenshot](screenshots/home.png)
 
 ### 📖 Book Details
-![Book Details Screenshot](screenshots/book_details.png)
+![Book Details Screenshot](screenshots/book-details.png)
 
 ### Wishlist 
 ![Wishlist Screenshot](screenshots/wishlist.png)
