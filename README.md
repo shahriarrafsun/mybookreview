@@ -40,5 +40,5 @@ Users can add books to their wishlist, leave reviews, and browse featured titles
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/<yourusername>/mybookreview.git
+git clone https://github.com/shahriarrafsun/mybookreview.git
 cd mybookreview
